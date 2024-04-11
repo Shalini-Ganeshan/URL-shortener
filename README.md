@@ -1,3 +1,6 @@
+Simplify lengthy URLs into compact links, perfect for sharing on social media, emails, and messages.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

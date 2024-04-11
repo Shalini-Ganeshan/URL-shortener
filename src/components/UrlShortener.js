@@ -4,6 +4,7 @@ import axios from 'axios';
 function UrlShortener() {
   const [longUrl, setLongUrl] = useState('');
   const [shortenedUrl, setShortenedUrl] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const shortenUrl = async () => {
     try {
@@ -19,10 +20,17 @@ function UrlShortener() {
         }
       );
       setShortenedUrl(response.data.result_url);
+      setErrorMessage(''); // Reset error message if request succeeds
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.status === 400) {
+        setErrorMessage('Invalid URL'); // Set error message for invalid URL
+      } else {
+        setErrorMessage('An error occurred'); // Set generic error message
+      }
     }
   };
+
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -46,7 +54,10 @@ function UrlShortener() {
       <button onClick={shortenUrl} className="w-full py-3 px-6  bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:bg-green-600 transition duration-300">
         Shorten
       </button>
-      {shortenedUrl && (
+      {errorMessage && (
+        <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+      )}
+      {shortenedUrl && !errorMessage && (
         <div className="mt-4">
           <p className="font-semibold text-black ">Shortened URL:</p>
           <div className="flex items-center justify-between bg-gray-100 border mb-24 border-gray-300 rounded-lg p-3">

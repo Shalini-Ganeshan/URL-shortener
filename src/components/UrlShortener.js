@@ -20,13 +20,13 @@ function UrlShortener() {
         }
       );
       setShortenedUrl(response.data.result_url);
-      setErrorMessage(''); // Reset error message if request succeeds
+      setErrorMessage(''); 
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 400) {
-        setErrorMessage('Invalid URL'); // Set error message for invalid URL
+        setErrorMessage('Invalid URL');
       } else {
-        setErrorMessage('An error occurred'); // Set generic error message
+        setErrorMessage('An error occurred'); 
       }
     }
   };
